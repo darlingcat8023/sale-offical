@@ -1,0 +1,11 @@
+// @no-log
+POST http://localhost:9000/api/file/upload
+Content-Type: multipart/form-data; boundary=WebAppBoundary
+
+--WebAppBoundary
+Content-Disposition: form-data; name="file"; filename="data.ovpn"
+Content-Type: text/plain
+
+< /Users/xiaowenrou/Documents/vpn/etar_openvpn.ovpn
+
+--WebAppBoundary--
