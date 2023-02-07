@@ -1,10 +1,27 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <meta charset="UTF-8">
-    <title>title</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
 </head>
+
 <body>
-<h3>你看我<span style="font-size: 35px" th:text="${userName}"></span>, 哈哈哈!</h3>
+    <style>
+        p {
+            font-size: 14px;
+        }
+    </style>
+    <div style="padding:30px;">
+        <p>名称：${sender}</p>
+        <p>邮箱：${address}</p>
+        <p>消息：${content}</p>
+        <div style="padding:50px 0 50px 0">---------</div>
+        <p>Date：${current}</p>
+        <p>Page URL：<a href=${location}">${location}</a></p>
+    </div>
 </body>
+
 </html>

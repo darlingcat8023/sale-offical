@@ -29,4 +29,6 @@ public class MailEntity {
 
     private String content;
 
+    private String location;
+
 }

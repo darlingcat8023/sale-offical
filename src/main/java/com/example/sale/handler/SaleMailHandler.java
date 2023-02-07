@@ -28,7 +28,7 @@ import java.util.Objects;
  */
 @Component
 @AllArgsConstructor
-public class MailHandler {
+public class SaleMailHandler {
 
     private final MailRepository mailRepository;
 
@@ -57,6 +57,7 @@ public class MailHandler {
         ctx.setVariable("address", request.address());
         ctx.setVariable("content", request.content());
         ctx.setVariable("current", LocalDateTime.now());
+        ctx.setVariable("location", request.location());
         message.setText(this.engine.process("mail", ctx), true);
         this.mailSender.send(message.getMimeMessage());
     }

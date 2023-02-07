@@ -17,7 +17,10 @@ public record MailSendRequest(
         String sender,
 
         @NotBlank
-        String content
+        String content,
+
+        @NotBlank
+        String location
 
 ) {
 
