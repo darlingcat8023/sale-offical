@@ -9,3 +9,8 @@ Content-Type: text/plain
 < /Users/xiaowenrou/Documents/vpn/etar_openvpn.ovpn
 
 --WebAppBoundary--
+
+###
+
+// @no-log
+GET http://localhost:9000/api/blog/page

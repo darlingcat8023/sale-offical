@@ -100,9 +100,9 @@ public class HandlerRouting {
     public RouterFunction<ServerResponse> saleBlogRouterFunction(SaleBlogHandler handler) {
         Supplier<RouterFunction<ServerResponse>> supplier = () -> RouterFunctions.route()
                 .POST("/save", RequestPredicates.contentType(APPLICATION_JSON), handler::saveBlog)
-                .POST("/delete", handler::deleteBlog)
-                .POST("/page", handler::pageBlog)
-                .POST("/list", handler::listBlog)
+                .GET("/delete", handler::deleteBlog)
+                .GET("/page", handler::pageBlog)
+                .GET("/list", handler::listBlog)
                 .build();
         return RouterFunctions.route().path("/api/blog", supplier).build();
     }
