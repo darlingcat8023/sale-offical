@@ -1,6 +1,7 @@
 package com.example.sale.handler;
 
 import com.example.sale.model.BlogSaveRequest;
+import com.example.sale.model.MailSendRequest;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -106,6 +107,32 @@ public class HandlerRouting {
         return RouterFunctions.route().path("/api/blog", supplier).build();
     }
 
+    @Bean
+    @RouterOperations(value = {
+            @RouterOperation(method = POST, path = "/api/mail/send", produces = MediaType.APPLICATION_JSON_VALUE, beanClass = SaleMailHandler.class, beanMethod = "sendMail",
+                    operation = @Operation(
+                            operationId = "sendMaid",
+                            description = "发送邮件",
+                            requestBody = @RequestBody(required = true, content = @Content(schema = @Schema(implementation = MailSendRequest.class))),
+                            responses = {
+                                    @ApiResponse(responseCode = "200", description = "successful operation", content = @Content(schema = @Schema(implementation = String.class)))
+                            }
+                    )
+            ),
+            @RouterOperation(method = GET, path = "/api/mail/page", beanClass = SaleMailHandler.class, beanMethod = "pageMail",
+                    operation = @Operation(
+                            operationId = "pageMail",
+                            description = "后台分页邮件",
+                            parameters = {
+                                    @Parameter(in = QUERY, name = "page", description = "分页查询的页数，每页10条"),
+                                    @Parameter(in = QUERY, name = "address", description = "邮件地址模糊查询")
+                            },
+                            responses = {
+                                    @ApiResponse(responseCode = "200", description = "successful operation", content = @Content(schema = @Schema(implementation = Page.class)))
+                            }
+                    )
+            )
+    })
     public RouterFunction<ServerResponse> mailRouterFunction(SaleMailHandler handler) {
         Supplier<RouterFunction<ServerResponse>> supplier = () -> RouterFunctions.route()
                 .POST("/send", RequestPredicates.contentType(APPLICATION_JSON), handler::sendMail)
