@@ -11,19 +11,26 @@
     </parent>
 
     <groupId>com.example</groupId>
-    <artifactId>sale-offical</artifactId>
+    <artifactId>sale-offcial</artifactId>
     <version>0.0.1-SNAPSHOT</version>
 
-    <name>sale-offical</name>
-    <description>sale-offical</description>
+    <name>sale-offcial</name>
+    <description>sale-offcial</description>
 
     <properties>
         <java.version>17</java.version>
+        <r2dbc-mysql.version>0.8.2.RELEASE</r2dbc-mysql.version>
         <openapi.version>1.6.9</openapi.version>
     </properties>
 
     <dependencyManagement>
         <dependencies>
+
+            <dependency>
+                <groupId>dev.miku</groupId>
+                <artifactId>r2dbc-mysql</artifactId>
+                <version>${r2dbc-mysql.version}</version>
+            </dependency>
 
             <dependency>
                 <groupId>org.springdoc</groupId>
@@ -44,6 +51,10 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-r2dbc</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>dev.miku</groupId>
+            <artifactId>r2dbc-mysql</artifactId>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
