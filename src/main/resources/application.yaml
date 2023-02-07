@@ -25,4 +25,3 @@ logging:
     org.springframework.core.codec.CharSequenceEncoder: trace
 
 filePath: "/Users/xiaowenrou/Downloads/"
-
