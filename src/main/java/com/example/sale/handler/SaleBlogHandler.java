@@ -15,6 +15,7 @@ import org.springframework.data.r2dbc.core.R2dbcEntityOperations;
 import org.springframework.data.relational.core.query.Criteria;
 import org.springframework.data.relational.core.query.Query;
 import org.springframework.stereotype.Component;
+import org.springframework.util.StringUtils;
 import org.springframework.web.reactive.function.server.ServerRequest;
 import org.springframework.web.reactive.function.server.ServerResponse;
 import reactor.core.publisher.Mono;
@@ -63,15 +64,15 @@ public class SaleBlogHandler {
 
     private Query buildQuery(ServerRequest request) {
         final var criteria = new AtomicReference<>(Criteria.empty());
-        request.queryParam("title").ifPresent(param -> {
+        request.queryParam("title").filter(StringUtils::hasText).ifPresent(param -> {
             var ct = criteria.get();
             criteria.set(ct.and(Criteria.where("title").like("%" + param + "%")));
         });
-        request.queryParam("startTime").ifPresent(param -> {
+        request.queryParam("startTime").filter(StringUtils::hasText).ifPresent(param -> {
             var ct = criteria.get();
             criteria.set(ct.and(Criteria.where("created_date").greaterThanOrEquals(param)));
         });
-        request.queryParam("endTime").ifPresent(param -> {
+        request.queryParam("endTime").filter(StringUtils::hasText).ifPresent(param -> {
             var ct = criteria.get();
             criteria.set(ct.and(Criteria.where("created_date").lessThanOrEquals(param)));
         });

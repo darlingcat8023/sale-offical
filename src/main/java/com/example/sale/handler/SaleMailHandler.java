@@ -13,6 +13,7 @@ import org.springframework.data.domain.*;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Component;
+import org.springframework.util.StringUtils;
 import org.springframework.web.reactive.function.server.ServerRequest;
 import org.springframework.web.reactive.function.server.ServerResponse;
 import org.thymeleaf.ITemplateEngine;
@@ -66,7 +67,7 @@ public class SaleMailHandler {
         var pageable = PageRequest.of(request.queryParam("page").map(Integer::parseInt).orElse(0), 10);
         var sort = Sort.by("id").ascending();
         var entity = new MailEntity();
-        request.queryParam("address").ifPresent(entity::setAddress);
+        request.queryParam("address").filter(StringUtils::hasText).ifPresent(entity::setAddress);
         var matcher = ExampleMatcher.matching().withMatcher("address", ExampleMatcher.GenericPropertyMatchers.contains()).withIgnoreNullValues();
         var ret = this.mailRepository.findBy(Example.of(entity, matcher), fluent -> fluent.sortBy(sort).page(pageable));
         var type = new ParameterizedTypeReference<Page<MailEntity>>() {};
