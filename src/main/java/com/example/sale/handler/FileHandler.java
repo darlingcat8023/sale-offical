@@ -41,7 +41,7 @@ public class FileHandler {
         }
         Function<FilePart, Mono<String>> function = part -> {
             var fn = UUID.randomUUID() + "." + FilenameUtils.getExtension(part.filename());
-            return part.transferTo(dict.resolve(fn)).then(Mono.defer(() -> Mono.just(current.resolve(fn).toString())));
+            return part.transferTo(dict.resolve(fn)).then(Mono.just(current.resolve(fn).toString()));
         };
         var uploaded = request.multipartData().map(m -> m.get("file"))
                 .flatMapMany(Flux::fromIterable).cast(FilePart.class).flatMap(function);
