@@ -5,11 +5,11 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import reactor.core.publisher.Hooks;
 
 @SpringBootApplication
-public class SaleOfficalApplication {
+public class SaleOffcialApplication {
 
     public static void main(String[] args) {
         Hooks.onOperatorDebug();
-        SpringApplication.run(SaleOfficalApplication.class, args);
+        SpringApplication.run(SaleOffcialApplication.class, args);
     }
 
 }

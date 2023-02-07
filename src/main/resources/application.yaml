@@ -1,19 +1,23 @@
 server:
   port: 9000
 
-#spring:
-#  r2dbc:
-#    url: "r2dbc:mysql://10.18.21.173:3306/marketing_ai_course?useUnicode=true&characterEncoding=UTF-8&useSSL=false"
-#    username: "marketing_ai_course"
-#    password: "Qn2574mdkM5CxJxd"
-#    pool:
-#      enabled: true
-#      max-size: 30
-#      initial-size: 10
-#      validation-query: "select 1"
-#      max-idle-time: 300m
-#      max-acquire-time: 3s
-#      max-create-connection-time: 5s
+spring:
+  r2dbc:
+    url: "r2dbc:mysql://10.18.21.173:3306/marketing_ai_course?useUnicode=true&characterEncoding=UTF-8&useSSL=false"
+    username: "marketing_ai_course"
+    password: "Qn2574mdkM5CxJxd"
+    pool:
+      enabled: true
+      max-size: 30
+      initial-size: 10
+      validation-query: "select 1"
+      max-idle-time: 300m
+      max-acquire-time: 3s
+      max-create-connection-time: 5s
+  mail:
+    host: "smtp.qq.com"
+    username: "604106138@qq.com"
+    password: "zkgntqanpandbaia"
 
 logging:
   level:
@@ -21,3 +25,4 @@ logging:
     org.springframework.core.codec.CharSequenceEncoder: trace
 
 filePath: "/Users/xiaowenrou/Downloads/"
+
