@@ -106,4 +106,12 @@ public class HandlerRouting {
         return RouterFunctions.route().path("/api/blog", supplier).build();
     }
 
+    public RouterFunction<ServerResponse> mailRouterFunction(MailHandler handler) {
+        Supplier<RouterFunction<ServerResponse>> supplier = () -> RouterFunctions.route()
+                .POST("/send", RequestPredicates.contentType(APPLICATION_JSON), handler::sendMail)
+                .GET("/page", handler::pageMail)
+                .build();
+        return RouterFunctions.route().path("/api/mail", supplier).build();
+    }
+
 }

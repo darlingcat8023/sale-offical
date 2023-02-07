@@ -37,13 +37,13 @@ public class SaleBlogHandler {
 
     public Mono<ServerResponse> saveBlog(ServerRequest request) {
         var mono = request.bodyToMono(BlogSaveRequest.class).doOnNext(req -> ValidatorUtils.valid(this.validator, req))
-                .map(BlogSaveRequest::convert).flatMap(this.saleBlogRepository::save).map(x -> "success");
+                .map(BlogSaveRequest::convert).flatMap(this.saleBlogRepository::save).thenReturn("success");
         return ServerResponse.ok().body(mono, String.class);
     }
 
     public Mono<ServerResponse> deleteBlog(ServerRequest request) {
         var id = request.queryParam("id").orElseThrow(() -> new RuntimeException("param error"));
-        var mono = this.saleBlogRepository.deleteById(Long.valueOf(id)).map(x -> "success");
+        var mono = this.saleBlogRepository.deleteById(Long.valueOf(id)).thenReturn("success");
         return ServerResponse.ok().body(mono, String.class);
     }
 
