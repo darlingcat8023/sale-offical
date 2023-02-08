@@ -30,8 +30,7 @@ public class SaleCarouselHandler {
     public Mono<ServerResponse> pageCarousel(ServerRequest request) {
         var pageable = PageRequest.of(request.queryParam("page").map(Integer::parseInt).orElse(0), 10);
         var sort = Sort.by("id").ascending();
-        var entity = new CarouselEntity();
-        var ret = this.carouselRepository.findBy(Example.of(entity, ExampleMatcher.matching().withIgnoreNullValues()), fluent -> fluent.sortBy(sort).page(pageable));
+        var ret = this.carouselRepository.findBy(Example.of(new CarouselEntity(), ExampleMatcher.matching().withIgnoreNullValues()), fluent -> fluent.sortBy(sort).page(pageable));
         var type = new ParameterizedTypeReference<Page<CarouselEntity>>() {};
         return ServerResponse.ok().body(ret, type);
     }
