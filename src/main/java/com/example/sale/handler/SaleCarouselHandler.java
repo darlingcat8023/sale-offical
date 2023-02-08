@@ -33,7 +33,7 @@ public class SaleCarouselHandler {
         var entity = new CarouselEntity();
         var ret = this.carouselRepository.findBy(Example.of(entity, ExampleMatcher.matching().withIgnoreNullValues()), fluent -> fluent.sortBy(sort).page(pageable));
         var type = new ParameterizedTypeReference<Page<CarouselEntity>>() {};
-        return ServerResponse.ok().body(ret, CarouselEntity.class);
+        return ServerResponse.ok().body(ret, type);
     }
 
 }
