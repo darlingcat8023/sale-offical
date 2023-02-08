@@ -57,8 +57,7 @@ public class SaleProductHandler {
     }
 
     public Mono<ServerResponse> listProduct(ServerRequest request) {
-        var list = request.queryParams().get("category");
-        return ServerResponse.ok().body(this.productRepository.findByCategoryIn(list), ProductEntity.class);
+        return ServerResponse.ok().body(this.productRepository.findByCategoryIn(request.queryParams().get("category")), ProductEntity.class);
     }
 
 }
