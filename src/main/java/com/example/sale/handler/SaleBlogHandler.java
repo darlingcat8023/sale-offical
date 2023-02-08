@@ -50,14 +50,14 @@ public class SaleBlogHandler {
 
     public Mono<ServerResponse> pageBlog(ServerRequest request) {
         var pageable = PageRequest.of(request.queryParam("page").map(Integer::parseInt).orElse(0), 10);
-        var sort = Sort.by("id").ascending();
+        var sort = Sort.by("id").descending();
         var matching = this.entityOperations.select(BlogEntity.class).matching(this.buildQuery(request).with(pageable).sort(sort));
         var type = new ParameterizedTypeReference<Page<BlogEntity>>() {};
         return ServerResponse.ok().body(matching.all().collectList().flatMap(content -> ReactivePageUtils.getPage(content, pageable, matching.count())), type);
     }
 
     public Mono<ServerResponse> listBlog(ServerRequest request) {
-        var sort = Sort.by("id").ascending();
+        var sort = Sort.by("id").descending();
         var matching = this.entityOperations.select(BlogEntity.class).matching(this.buildQuery(request).sort(sort)).all();
         return ServerResponse.ok().body(matching, BlogEntity.class);
     }

@@ -4,7 +4,10 @@ import com.fasterxml.jackson.annotation.JsonRawValue;
 import lombok.Data;
 import lombok.experimental.Accessors;
 import nonapi.io.github.classgraph.json.Id;
+import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.relational.core.mapping.Table;
+
+import java.time.LocalDateTime;
 
 /**
  * @author xiaowenrou
@@ -17,6 +20,9 @@ public class ProductEntity {
 
     @Id
     private Long id;
+
+    @CreatedDate
+    private LocalDateTime createdDate;
 
     private String name;
 

@@ -11,12 +11,12 @@ import org.springframework.data.relational.core.mapping.Table;
  */
 @Data
 @Accessors(chain = true)
-@Table(value = "sale_menu")
-public class MenuEntity {
+@Table(value = "sale_carousel")
+public class CarouselEntity {
 
     @Id
     private Long id;
 
-    private String text;
+    private String category;
 
 }

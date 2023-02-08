@@ -301,4 +301,34 @@ public class HandlerRouting {
         return RouterFunctions.route().path("/api/menu", supplier).build();
     }
 
+    @Bean
+    @RouterOperations(value = {
+            @RouterOperation(method = POST, path = "/api/carousel/save", produces = MediaType.APPLICATION_JSON_VALUE, beanClass = SaleCarouselHandler.class, beanMethod = "saveCarousel",
+                    operation = @Operation(
+                            operationId = "saveCarousel",
+                            description = "保存轮播类型",
+                            requestBody = @RequestBody(required = true, content = @Content(schema = @Schema(implementation = CarouselSaveRequest.class))),
+                            responses = {
+                                    @ApiResponse(responseCode = "200", description = "successful operation", content = @Content(schema = @Schema(implementation = String.class)))
+                            }
+                    )
+            ),
+            @RouterOperation(method = GET, path = "/api/carousel/list", beanClass = SaleCarouselHandler.class, beanMethod = "getCarousel",
+                    operation = @Operation(
+                            operationId = "getCarousel",
+                            description = "获取轮播类型",
+                            responses = {
+                                    @ApiResponse(responseCode = "200", description = "successful operation", content = @Content(schema = @Schema(implementation = List.class)))
+                            }
+                    )
+            )
+    })
+    public RouterFunction<ServerResponse> carouselRouterFunction(SaleCarouselHandler handler) {
+        Supplier<RouterFunction<ServerResponse>> supplier = () -> RouterFunctions.route()
+                .POST("/save", RequestPredicates.contentType(APPLICATION_JSON), handler::saveCarousel)
+                .GET("/list", handler::listCarousel)
+                .build();
+        return RouterFunctions.route().path("/api/carousel", supplier).build();
+    }
+
 }
