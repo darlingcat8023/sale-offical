@@ -9,6 +9,17 @@ import org.springframework.beans.BeanUtils;
  */
 public record CarouselImageSaveRequest(
 
+        Long id,
+
+        String name,
+
+        Long category,
+
+        String title,
+
+        String desc,
+
+        String image
 
 ) {
 
