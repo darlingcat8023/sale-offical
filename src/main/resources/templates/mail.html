@@ -15,12 +15,12 @@
         }
     </style>
     <div style="padding:30px;">
-        <p>名称：${sender}</p>
-        <p>邮箱：${address}</p>
-        <p>消息：${content}</p>
+        <p th:utext="名称： + ${sender}"></p>
+        <p th:utext="邮箱：+ ${address}"></p>
+        <p th:utext="消息：+ ${content}"></p>
         <div style="padding:50px 0 50px 0">---------</div>
-        <p>Date：${current}</p>
-        <p>Page URL：<a href=${location}">${location}</a></p>
+        <p th:utext="Date：+ ${current}"></p>
+        <p>Page URL：<a th:href="@{${location}}" th:utext="${location}"></a></p>
     </div>
 </body>
 
