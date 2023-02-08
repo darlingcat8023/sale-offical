@@ -1,10 +1,8 @@
 package com.example.sale.handler;
 
+import com.example.sale.dao.entity.MenuEntity;
 import com.example.sale.dao.entity.ProductEntity;
-import com.example.sale.model.BlogSaveRequest;
-import com.example.sale.model.MailSendRequest;
-import com.example.sale.model.ProductSaveRequest;
-import com.example.sale.model.SellerSaveRequest;
+import com.example.sale.model.*;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -271,6 +269,36 @@ public class HandlerRouting {
                 .GET("/list", handler::listProduct)
                 .build();
         return RouterFunctions.route().path("/api/product", supplier).build();
+    }
+
+    @Bean
+    @RouterOperations(value = {
+            @RouterOperation(method = POST, path = "/api/menu/save", produces = MediaType.APPLICATION_JSON_VALUE, beanClass = SaleMenuHandler.class, beanMethod = "saveMenu",
+                    operation = @Operation(
+                            operationId = "saveMenu",
+                            description = "保存菜单",
+                            requestBody = @RequestBody(required = true, content = @Content(schema = @Schema(implementation = MenuSaveRequest.class))),
+                            responses = {
+                                    @ApiResponse(responseCode = "200", description = "successful operation", content = @Content(schema = @Schema(implementation = String.class)))
+                            }
+                    )
+            ),
+            @RouterOperation(method = GET, path = "/api/menu/get", beanClass = SaleMenuHandler.class, beanMethod = "getMenu",
+                    operation = @Operation(
+                            operationId = "getMenu",
+                            description = "获取菜单",
+                            responses = {
+                                    @ApiResponse(responseCode = "200", description = "successful operation", content = @Content(schema = @Schema(implementation = MenuEntity.class)))
+                            }
+                    )
+            )
+    })
+    public RouterFunction<ServerResponse> menuRouterFunction(SaleMenuHandler handler) {
+        Supplier<RouterFunction<ServerResponse>> supplier = () -> RouterFunctions.route()
+                .POST("/save", RequestPredicates.contentType(APPLICATION_JSON), handler::saveMenu)
+                .GET("/get", handler::getMenu)
+                .build();
+        return RouterFunctions.route().path("/api/menu", supplier).build();
     }
 
 }
