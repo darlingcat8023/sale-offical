@@ -57,11 +57,8 @@ public class SaleProductHandler {
     }
 
     public Mono<ServerResponse> listProduct(ServerRequest request) {
-        var sort = Sort.by("id").descending();
-        var entity = new ProductEntity();
-        request.queryParam("category").ifPresent(entity::setCategory);
-        var matcher = ExampleMatcher.matching().withIgnoreNullValues();
-        return ServerResponse.ok().body(this.productRepository.findAll(Example.of(entity, matcher), sort), ProductEntity.class);
+        var list = request.queryParams().get("category");
+        return ServerResponse.ok().body(this.productRepository.findByCategoryIn(list), ProductEntity.class);
     }
 
 }
