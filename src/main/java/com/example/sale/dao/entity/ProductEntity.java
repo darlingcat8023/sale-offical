@@ -36,6 +36,7 @@ public class ProductEntity {
 
     private String video;
 
+    @JsonRawValue
     private String loadImage;
 
     private String detail;

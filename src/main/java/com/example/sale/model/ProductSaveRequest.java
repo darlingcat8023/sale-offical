@@ -33,7 +33,7 @@ public record ProductSaveRequest(
 
         String video,
 
-        String loadImage,
+        List<String> loadImage,
 
         String detail,
 
@@ -45,7 +45,9 @@ public record ProductSaveRequest(
     public ProductEntity convert(ObjectMapper mapper) {
         var entity = new ProductEntity();
         BeanUtils.copyProperties(this, entity);
-        return entity.setProperties(mapper.writeValueAsString(this.properties)).setRelationProduct(mapper.writeValueAsString(this.relationProduct));
+        return entity.setProperties(mapper.writeValueAsString(this.properties))
+                .setRelationProduct(mapper.writeValueAsString(this.relationProduct))
+                .setLoadImage(mapper.writeValueAsString(this.loadImage));
     }
 
 }
