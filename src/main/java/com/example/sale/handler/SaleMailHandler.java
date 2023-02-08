@@ -52,7 +52,7 @@ public class SaleMailHandler {
     private void doSend(MailSendRequest request) {
         var message = new MimeMessageHelper(this.mailSender.createMimeMessage(), true);
         message.setTo(Objects.requireNonNull(this.environment.getProperty("targetMail")));
-        message.setFrom(request.address());
+        message.setFrom("604106138@qq.com");
         Context ctx = new Context();
         ctx.setVariable("sender", request.sender());
         ctx.setVariable("address", request.address());

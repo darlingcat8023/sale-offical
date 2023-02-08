@@ -30,9 +30,15 @@ public class MailTest {
         message.setFrom("604106138@qq.com");
         message.setSubject("测试邮件");
         Context ctx = new Context();
-        ctx.setVariable("userName", "测试用户");
-        message.setText(this.engine.process("mail", ctx), true);
-        this.javaMailSender.send(message.getMimeMessage());
+        ctx.setVariable("sender", "1");
+        ctx.setVariable("address", "2");
+        ctx.setVariable("content", "3");
+        ctx.setVariable("current", "4");
+        ctx.setVariable("location", "http://www.baidu.com");
+        String s = this.engine.process("mail", ctx);
+        //message.setText(this.engine.process("mail", ctx), true);
+        //this.javaMailSender.send(message.getMimeMessage());
+        System.out.println(s);
     }
 
 }
