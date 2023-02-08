@@ -3,8 +3,8 @@ package com.example.sale.dao.entity;
 import com.fasterxml.jackson.annotation.JsonRawValue;
 import lombok.Data;
 import lombok.experimental.Accessors;
-import nonapi.io.github.classgraph.json.Id;
 import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.Id;
 import org.springframework.data.relational.core.mapping.Table;
 
 import java.time.LocalDateTime;

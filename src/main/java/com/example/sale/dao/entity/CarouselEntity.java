@@ -2,7 +2,7 @@ package com.example.sale.dao.entity;
 
 import lombok.Data;
 import lombok.experimental.Accessors;
-import nonapi.io.github.classgraph.json.Id;
+import org.springframework.data.annotation.Id;
 import org.springframework.data.relational.core.mapping.Table;
 
 /**
