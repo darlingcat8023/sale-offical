@@ -2,20 +2,20 @@ package com.example.sale.dao.entity;
 
 import lombok.Data;
 import lombok.experimental.Accessors;
+import nonapi.io.github.classgraph.json.Id;
 import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.Id;
 import org.springframework.data.relational.core.mapping.Table;
 
 import java.time.LocalDateTime;
 
 /**
  * @author xiaowenrou
- * @date 2023/2/7
+ * @date 2023/2/8
  */
 @Data
 @Accessors(chain = true)
-@Table(value = "sale_blog")
-public class SaleBlogEntity {
+@Table(value = "sale_seller")
+public class SellerEntity {
 
     @Id
     private Long id;
@@ -23,14 +23,14 @@ public class SaleBlogEntity {
     @CreatedDate
     private LocalDateTime createdDate;
 
-    private String title;
+    private String name;
 
-    private String secondaryTitle;
+    private String phone;
 
-    private String digest;
+    private String mail;
+
+    private String fox;
 
     private String image;
-
-    private String content;
 
 }

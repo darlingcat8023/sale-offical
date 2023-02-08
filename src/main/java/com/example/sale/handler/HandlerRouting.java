@@ -2,6 +2,7 @@ package com.example.sale.handler;
 
 import com.example.sale.model.BlogSaveRequest;
 import com.example.sale.model.MailSendRequest;
+import com.example.sale.model.SellerSaveRequest;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -92,7 +93,7 @@ public class HandlerRouting {
                                     @Parameter(in = QUERY, name = "endTime", description = "创建时间结束")
                             },
                             responses = {
-                                    @ApiResponse(responseCode = "400", description = "fail operation", content = @Content(schema = @Schema(implementation = List.class))),
+                                    @ApiResponse(responseCode = "200", description = "successful operation", content = @Content(schema = @Schema(implementation = List.class))),
                             }
                     )
             )
@@ -139,6 +140,62 @@ public class HandlerRouting {
                 .GET("/page", handler::pageMail)
                 .build();
         return RouterFunctions.route().path("/api/mail", supplier).build();
+    }
+
+    @Bean
+    @RouterOperations(value = {
+            @RouterOperation(method = POST, path = "/api/seller/save", produces = MediaType.APPLICATION_JSON_VALUE, beanClass = SaleSellerHandler.class, beanMethod = "saveSeller",
+                    operation = @Operation(
+                            operationId = "saveSeller",
+                            description = "保存销售经理",
+                            requestBody = @RequestBody(required = true, content = @Content(schema = @Schema(implementation = SellerSaveRequest.class))),
+                            responses = {
+                                    @ApiResponse(responseCode = "200", description = "successful operation", content = @Content(schema = @Schema(implementation = String.class)))
+                            }
+                    )
+            ),
+            @RouterOperation(method = GET, path = "/api/seller/delete", beanClass = SaleSellerHandler.class, beanMethod = "deleteSeller",
+                    operation = @Operation(
+                            operationId = "deleteSeller",
+                            description = "删除销售经理",
+                            parameters = {
+                                    @Parameter(in = QUERY, name = "id", description = "主键删除")
+                            },
+                            responses = {
+                                    @ApiResponse(responseCode = "200", description = "successful operation", content = @Content(schema = @Schema(implementation = String.class)))
+                            }
+                    )
+            ),
+            @RouterOperation(method = GET, path = "/api/seller/page", beanClass = SaleSellerHandler.class, beanMethod = "pageSeller",
+                    operation = @Operation(
+                            operationId = "pageSeller",
+                            description = "后台分页Seller",
+                            parameters = {
+                                    @Parameter(in = QUERY, name = "page", description = "分页查询的页数，每页10条")
+                            },
+                            responses = {
+                                    @ApiResponse(responseCode = "200", description = "successful operation", content = @Content(schema = @Schema(implementation = Page.class)))
+                            }
+                    )
+            ),
+            @RouterOperation(method = GET, path = "/api/seller/list", beanClass = SaleSellerHandler.class, beanMethod = "listSeller",
+                    operation = @Operation(
+                            operationId = "listSeller",
+                            description = "前台销售经理列表",
+                            responses = {
+                                    @ApiResponse(responseCode = "200", description = "successful operation", content = @Content(schema = @Schema(implementation = List.class))),
+                            }
+                    )
+            )
+    })
+    public RouterFunction<ServerResponse> sellerRouterFunction(SaleSellerHandler handler) {
+        Supplier<RouterFunction<ServerResponse>> supplier = () -> RouterFunctions.route()
+                .POST("/save", RequestPredicates.contentType(APPLICATION_JSON), handler::saveSeller)
+                .GET("/delete", handler::deleteSeller)
+                .GET("/page", handler::pageSeller)
+                .GET("/list", handler::listSeller)
+                .build();
+        return RouterFunctions.route().path("/api/seller", supplier).build();
     }
 
 }

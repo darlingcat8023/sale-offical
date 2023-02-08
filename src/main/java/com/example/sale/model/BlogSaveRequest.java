@@ -1,6 +1,6 @@
 package com.example.sale.model;
 
-import com.example.sale.dao.entity.SaleBlogEntity;
+import com.example.sale.dao.entity.BlogEntity;
 import jakarta.validation.constraints.NotBlank;
 import org.springframework.beans.BeanUtils;
 
@@ -26,8 +26,8 @@ public record BlogSaveRequest(
         String content
 ) {
 
-    public SaleBlogEntity convert() {
-        var entity = new SaleBlogEntity();
+    public BlogEntity convert() {
+        var entity = new BlogEntity();
         BeanUtils.copyProperties(this, entity);
         return entity;
     }

@@ -1,7 +1,7 @@
 package com.example.sale.handler;
 
-import com.example.sale.dao.SaleBlogRepository;
-import com.example.sale.dao.entity.SaleBlogEntity;
+import com.example.sale.dao.BlogRepository;
+import com.example.sale.dao.entity.BlogEntity;
 import com.example.sale.model.BlogSaveRequest;
 import com.example.sale.utils.ReactivePageUtils;
 import com.example.sale.utils.ValidatorUtils;
@@ -30,7 +30,7 @@ import java.util.concurrent.atomic.AtomicReference;
 @AllArgsConstructor
 public class SaleBlogHandler {
 
-    private final SaleBlogRepository saleBlogRepository;
+    private final BlogRepository saleBlogRepository;
 
     private final R2dbcEntityOperations entityOperations;
 
@@ -51,15 +51,15 @@ public class SaleBlogHandler {
     public Mono<ServerResponse> pageBlog(ServerRequest request) {
         var pageable = PageRequest.of(request.queryParam("page").map(Integer::parseInt).orElse(0), 10);
         var sort = Sort.by("id").ascending();
-        var matching = this.entityOperations.select(SaleBlogEntity.class).matching(this.buildQuery(request).with(pageable).sort(sort));
-        var type = new ParameterizedTypeReference<Page<SaleBlogEntity>>() {};
+        var matching = this.entityOperations.select(BlogEntity.class).matching(this.buildQuery(request).with(pageable).sort(sort));
+        var type = new ParameterizedTypeReference<Page<BlogEntity>>() {};
         return ServerResponse.ok().body(matching.all().collectList().flatMap(content -> ReactivePageUtils.getPage(content, pageable, matching.count())), type);
     }
 
     public Mono<ServerResponse> listBlog(ServerRequest request) {
         var sort = Sort.by("id").ascending();
-        var matching = this.entityOperations.select(SaleBlogEntity.class).matching(this.buildQuery(request).sort(sort)).all();
-        return ServerResponse.ok().body(matching, SaleBlogEntity.class);
+        var matching = this.entityOperations.select(BlogEntity.class).matching(this.buildQuery(request).sort(sort)).all();
+        return ServerResponse.ok().body(matching, BlogEntity.class);
     }
 
     private Query buildQuery(ServerRequest request) {
