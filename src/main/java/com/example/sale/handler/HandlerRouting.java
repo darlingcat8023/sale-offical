@@ -234,7 +234,7 @@ public class HandlerRouting {
                             }
                     )
             ),
-            @RouterOperation(method = GET, path = "/api/product/page", beanClass = SaleSellerHandler.class, beanMethod = "pageProduct",
+            @RouterOperation(method = GET, path = "/api/product/page", beanClass = SaleProductHandler.class, beanMethod = "pageProduct",
                     operation = @Operation(
                             operationId = "pageProduct",
                             description = "后台分页Product",
@@ -247,7 +247,7 @@ public class HandlerRouting {
                             }
                     )
             ),
-            @RouterOperation(method = GET, path = "/api/product/list", beanClass = SaleSellerHandler.class, beanMethod = "listProduct",
+            @RouterOperation(method = GET, path = "/api/product/list", beanClass = SaleProductHandler.class, beanMethod = "listProduct",
                     operation = @Operation(
                             operationId = "listProduct",
                             description = "前台Product列表",
@@ -313,9 +313,9 @@ public class HandlerRouting {
                             }
                     )
             ),
-            @RouterOperation(method = GET, path = "/api/carousel/list", beanClass = SaleCarouselHandler.class, beanMethod = "getCarousel",
+            @RouterOperation(method = GET, path = "/api/carousel/page", beanClass = SaleCarouselHandler.class, beanMethod = "pageCarousel",
                     operation = @Operation(
-                            operationId = "getCarousel",
+                            operationId = "pageCarousel",
                             description = "获取轮播类型",
                             responses = {
                                     @ApiResponse(responseCode = "200", description = "successful operation", content = @Content(schema = @Schema(implementation = List.class)))
@@ -326,7 +326,7 @@ public class HandlerRouting {
     public RouterFunction<ServerResponse> carouselRouterFunction(SaleCarouselHandler handler) {
         Supplier<RouterFunction<ServerResponse>> supplier = () -> RouterFunctions.route()
                 .POST("/save", RequestPredicates.contentType(APPLICATION_JSON), handler::saveCarousel)
-                .GET("/list", handler::listCarousel)
+                .GET("/page", handler::pageCarousel)
                 .build();
         return RouterFunctions.route().path("/api/carousel", supplier).build();
     }
