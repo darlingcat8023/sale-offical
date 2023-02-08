@@ -32,14 +32,14 @@ public class SaleSellerHandler {
     }
 
     public Mono<ServerResponse> deleteSeller(ServerRequest request) {
-        var id = request.queryParam("id").orElseThrow(() -> new RuntimeException("param error"));
-        var mono = this.sellerRepository.deleteById(Long.valueOf(id)).thenReturn("success");
+        var id = request.queryParam("id").map(Long::valueOf).orElseThrow(() -> new RuntimeException("param error"));
+        var mono = this.sellerRepository.deleteById(id).thenReturn("success");
         return ServerResponse.ok().body(mono, String.class);
     }
 
     public Mono<ServerResponse> pageSeller(ServerRequest request) {
         var pageable = PageRequest.of(request.queryParam("page").map(Integer::parseInt).orElse(0), 10);
-        var sort = Sort.by("id").ascending();
+        var sort = Sort.by("id").descending();
         var ret = this.sellerRepository.findBy(Example.of(new SellerEntity(), ExampleMatcher.matching().withIgnoreNullValues()), fluent -> fluent.sortBy(sort).page(pageable));
         var type = new ParameterizedTypeReference<Page<SellerEntity>>() {};
         return ServerResponse.ok().body(ret, type);

@@ -31,6 +31,8 @@ public class SellerEntity {
 
     private String fox;
 
+    private String position;
+
     private String image;
 
 }

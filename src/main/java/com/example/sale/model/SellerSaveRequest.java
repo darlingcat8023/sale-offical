@@ -1,6 +1,7 @@
 package com.example.sale.model;
 
 import com.example.sale.dao.entity.SellerEntity;
+import jakarta.validation.constraints.NotBlank;
 import org.springframework.beans.BeanUtils;
 
 /**
@@ -10,6 +11,7 @@ import org.springframework.beans.BeanUtils;
 public record SellerSaveRequest(
         Long id,
 
+        @NotBlank
         String name,
 
         String phone,
@@ -18,6 +20,10 @@ public record SellerSaveRequest(
 
         String fox,
 
+        String position,
+
+
+        @NotBlank
         String image
 
 ) {

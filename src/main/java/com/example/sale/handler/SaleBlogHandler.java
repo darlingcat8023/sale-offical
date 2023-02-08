@@ -43,8 +43,8 @@ public class SaleBlogHandler {
     }
 
     public Mono<ServerResponse> deleteBlog(ServerRequest request) {
-        var id = request.queryParam("id").orElseThrow(() -> new RuntimeException("param error"));
-        var mono = this.saleBlogRepository.deleteById(Long.valueOf(id)).thenReturn("success");
+        var id = request.queryParam("id").map(Long::valueOf).orElseThrow(() -> new RuntimeException("param error"));
+        var mono = this.saleBlogRepository.deleteById(id).thenReturn("success");
         return ServerResponse.ok().body(mono, String.class);
     }
 

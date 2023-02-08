@@ -1,0 +1,67 @@
+package com.example.sale.handler;
+
+import com.example.sale.dao.ProductRepository;
+import com.example.sale.dao.entity.ProductEntity;
+import com.example.sale.model.ProductSaveRequest;
+import com.example.sale.utils.ValidatorUtils;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import jakarta.validation.Validator;
+import lombok.AllArgsConstructor;
+import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.data.domain.*;
+import org.springframework.stereotype.Component;
+import org.springframework.web.reactive.function.server.ServerRequest;
+import org.springframework.web.reactive.function.server.ServerResponse;
+import reactor.core.publisher.Mono;
+
+/**
+ * @author xiaowenrou
+ * @date 2023/2/8
+ */
+@Component
+@AllArgsConstructor
+public class SaleProductHandler {
+
+    private final ProductRepository productRepository;
+
+    private final Validator validator;
+
+    private final ObjectMapper mapper;
+
+    public Mono<ServerResponse> saveProduct(ServerRequest request) {
+        var mono = request.bodyToMono(ProductSaveRequest.class).doOnNext(req -> ValidatorUtils.valid(this.validator, req))
+                .map(req -> req.convert(this.mapper)).flatMap(this.productRepository::save).thenReturn("success");
+        return ServerResponse.ok().body(mono, String.class);
+    }
+
+    public Mono<ServerResponse> deleteProduct(ServerRequest request) {
+        var id = request.queryParam("id").map(Long::valueOf).orElseThrow(() -> new RuntimeException("param error"));
+        var mono = this.productRepository.deleteById(id).thenReturn("success");
+        return ServerResponse.ok().body(mono, String.class);
+    }
+
+    public Mono<ServerResponse> detailProduct(ServerRequest request) {
+        var id = request.queryParam("id").map(Long::valueOf).orElseThrow(() -> new RuntimeException("param error"));
+        return ServerResponse.ok().body(this.productRepository.findById(id), ProductEntity.class);
+    }
+
+    public Mono<ServerResponse> pageProduct(ServerRequest request) {
+        var pageable = PageRequest.of(request.queryParam("page").map(Integer::parseInt).orElse(0), 10);
+        var sort = Sort.by("id").descending();
+        var entity = new ProductEntity();
+        request.queryParam("name").ifPresent(entity::setName);
+        var matcher = ExampleMatcher.matching().withMatcher("name", ExampleMatcher.GenericPropertyMatchers.contains()).withIgnoreNullValues();
+        var ret = this.productRepository.findBy(Example.of(entity, matcher), fluent -> fluent.sortBy(sort).page(pageable));
+        var type = new ParameterizedTypeReference<Page<ProductEntity>>() {};
+        return ServerResponse.ok().body(ret, type);
+    }
+
+    public Mono<ServerResponse> listProduct(ServerRequest request) {
+        var sort = Sort.by("id").descending();
+        var entity = new ProductEntity();
+        request.queryParam("category").ifPresent(entity::setCategory);
+        var matcher = ExampleMatcher.matching().withIgnoreNullValues();
+        return ServerResponse.ok().body(this.productRepository.findBy(Example.of(entity, matcher), fluent -> fluent.sortBy(sort).all()), ProductEntity.class);
+    }
+
+}
