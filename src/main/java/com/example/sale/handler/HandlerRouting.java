@@ -331,4 +331,61 @@ public class HandlerRouting {
         return RouterFunctions.route().path("/api/carousel", supplier).build();
     }
 
+    @Bean
+    @RouterOperations(value = {
+            @RouterOperation(method = POST, path = "/api/carouselImage/save", produces = MediaType.APPLICATION_JSON_VALUE, beanClass = CarouselImageHandler.class, beanMethod = "saveCarouselImage",
+                    operation = @Operation(
+                            operationId = "saveCarouselImage",
+                            description = "保存CarouselImage",
+                            requestBody = @RequestBody(required = true, content = @Content(schema = @Schema(implementation = CarouselImageSaveRequest.class))),
+                            responses = {
+                                    @ApiResponse(responseCode = "200", description = "successful operation", content = @Content(schema = @Schema(implementation = String.class)))
+                            }
+                    )
+            ),
+            @RouterOperation(method = GET, path = "/api/carouselImage/delete", beanClass = CarouselImageHandler.class, beanMethod = "deleteCarouselImage",
+                    operation = @Operation(
+                            operationId = "deleteCarouselImage",
+                            description = "删除CarouselImage",
+                            parameters = {
+                                    @Parameter(in = QUERY, name = "id", description = "主键删除")
+                            },
+                            responses = {
+                                    @ApiResponse(responseCode = "200", description = "successful operation", content = @Content(schema = @Schema(implementation = String.class)))
+                            }
+                    )
+            ),
+            @RouterOperation(method = GET, path = "/api/carouselImage/page", beanClass = CarouselImageHandler.class, beanMethod = "pageCarouselImage",
+                    operation = @Operation(
+                            operationId = "pageCarouselImage",
+                            description = "后台分页CarouselImage",
+                            parameters = {
+                                    @Parameter(in = QUERY, name = "page", description = "分页查询的页数，每页10条"),
+                                    @Parameter(in = QUERY, name = "name", description = "名字")
+                            },
+                            responses = {
+                                    @ApiResponse(responseCode = "200", description = "successful operation", content = @Content(schema = @Schema(implementation = Page.class)))
+                            }
+                    )
+            ),
+            @RouterOperation(method = GET, path = "/api/carouselImage/list", beanClass = CarouselImageHandler.class, beanMethod = "listCarouselImage",
+                    operation = @Operation(
+                            operationId = "listCarouselImage",
+                            description = "前台CarouselImage列表",
+                            responses = {
+                                    @ApiResponse(responseCode = "200", description = "successful operation", content = @Content(schema = @Schema(implementation = List.class))),
+                            }
+                    )
+            )
+    })
+    public RouterFunction<ServerResponse> carouselImageRouterFunction(CarouselImageHandler handler) {
+        Supplier<RouterFunction<ServerResponse>> supplier = () -> RouterFunctions.route()
+                .POST("/save", RequestPredicates.contentType(APPLICATION_JSON), handler::saveCarouselImage)
+                .GET("/delete", handler::deleteCarouselImage)
+                .GET("/page", handler::pageCarouselImage)
+                .GET("/list", handler::listCarouselImage)
+                .build();
+        return RouterFunctions.route().path("/api/carouselImage", supplier).build();
+    }
+
 }

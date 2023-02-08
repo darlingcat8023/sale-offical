@@ -61,7 +61,7 @@ public class SaleProductHandler {
         var entity = new ProductEntity();
         request.queryParam("category").ifPresent(entity::setCategory);
         var matcher = ExampleMatcher.matching().withIgnoreNullValues();
-        return ServerResponse.ok().body(this.productRepository.findBy(Example.of(entity, matcher), fluent -> fluent.sortBy(sort).all()), ProductEntity.class);
+        return ServerResponse.ok().body(this.productRepository.findAll(Example.of(entity, matcher), sort), ProductEntity.class);
     }
 
 }
