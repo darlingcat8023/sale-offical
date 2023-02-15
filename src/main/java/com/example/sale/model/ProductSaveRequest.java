@@ -21,7 +21,7 @@ public record ProductSaveRequest(
 
         String category,
 
-        String desc,
+        String description,
 
         String image,
 

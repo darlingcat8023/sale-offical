@@ -17,7 +17,7 @@ public record CarouselImageSaveRequest(
 
         String title,
 
-        String desc,
+        String description,
 
         String image
 

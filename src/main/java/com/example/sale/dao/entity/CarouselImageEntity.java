@@ -29,7 +29,7 @@ public class CarouselImageEntity {
 
     private String title;
 
-    private String desc;
+    private String description;
 
     private String image;
 
