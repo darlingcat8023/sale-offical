@@ -9,6 +9,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.data.domain.*;
 import org.springframework.stereotype.Component;
+import org.springframework.util.StringUtils;
 import org.springframework.web.reactive.function.server.ServerRequest;
 import org.springframework.web.reactive.function.server.ServerResponse;
 import reactor.core.publisher.Mono;
@@ -42,6 +43,7 @@ public class CarouselImageHandler {
         var sort = Sort.by("id").descending();
         var entity = new CarouselImageEntity();
         request.queryParam("name").ifPresent(entity::setName);
+        request.queryParam("category").filter(StringUtils::hasText).map(Long::valueOf).ifPresent(entity::setCategory);
         var matcher = ExampleMatcher.matching().withMatcher("name", ExampleMatcher.GenericPropertyMatchers.contains()).withIgnoreNullValues();
         var ret = this.imageRepository.findBy(Example.of(entity, matcher), fluent -> fluent.sortBy(sort).page(pageable));
         var type = new ParameterizedTypeReference<Page<CarouselImageEntity>>() {};
