@@ -10,6 +10,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.data.domain.*;
 import org.springframework.stereotype.Component;
+import org.springframework.util.StringUtils;
 import org.springframework.web.reactive.function.server.ServerRequest;
 import org.springframework.web.reactive.function.server.ServerResponse;
 import reactor.core.publisher.Mono;
@@ -57,7 +58,9 @@ public class SaleProductHandler {
     }
 
     public Mono<ServerResponse> listProduct(ServerRequest request) {
-        return ServerResponse.ok().body(this.productRepository.findByCategoryIn(request.queryParams().get("category")), ProductEntity.class);
+        var entity = new ProductEntity();
+        request.queryParam("category").filter(StringUtils::hasText).ifPresent(entity::setCategory);
+        return ServerResponse.ok().body(this.productRepository.findAll(Example.of(entity)), ProductEntity.class);
     }
 
 }
