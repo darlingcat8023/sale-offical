@@ -15,9 +15,11 @@ spring:
       max-acquire-time: 3s
       max-create-connection-time: 5s
   mail:
+    # smtp服务器地址，例如 smtp.qq.com
     host: "smtp.qq.com"
-    username: "604106138@qq.com"
-    password: "zkgntqanpandbaia"
+    username: "sales@earthmother.cn"
+    # 这个是第三方登录邮箱的授权码
+    password: ""
 
 logging:
   level:
