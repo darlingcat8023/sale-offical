@@ -3,9 +3,9 @@ server:
 
 spring:
   r2dbc:
-    url: "r2dbc:mysql://10.18.21.173:3306/marketing_ai_course?characterEncoding=UTF-8&useSSL=false"
-    username: "marketing_ai_course"
-    password: "Qn2574mdkM5CxJxd"
+    url: "r2dbc:mysql://47.254.34.47:3306/reactive_sale?characterEncoding=UTF-8&useSSL=false"
+    username: "root"
+    password: "123456"
     pool:
       enabled: true
       max-size: 30
@@ -16,10 +16,10 @@ spring:
       max-create-connection-time: 5s
   mail:
     # smtp服务器地址，例如 smtp.qq.com
-    host: "smtp.qq.com"
-    username: "sales@earthmother.cn"
+    host: "smtp.exmail.qq.com"
+    username: "eric.sun@earthmother.cn"
     # 这个是第三方登录邮箱的授权码
-    password: ""
+    password: "pLGaH4vKqNg3NcBM"
 
 logging:
   level:
@@ -27,4 +27,5 @@ logging:
     org.springframework.core.codec.CharSequenceEncoder: trace
 
 filePath: "/Users/xiaowenrou/Downloads/"
+#targetMail: "sales@earthmother.cn"
 targetMail: "yuanyang613@163.com"

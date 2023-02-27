@@ -7,6 +7,7 @@ import com.example.sale.utils.ValidatorUtils;
 import jakarta.validation.Validator;
 import lombok.AllArgsConstructor;
 import lombok.SneakyThrows;
+import org.springframework.boot.autoconfigure.mail.MailProperties;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.core.env.Environment;
 import org.springframework.data.domain.*;
@@ -41,6 +42,8 @@ public class SaleMailHandler {
 
     private final Environment environment;
 
+    private final MailProperties mailProperties;
+
 
     public Mono<ServerResponse> sendMail(ServerRequest request) {
         var mono = request.bodyToMono(MailSendRequest.class).doOnNext(req -> ValidatorUtils.valid(this.validator, req))
@@ -52,7 +55,7 @@ public class SaleMailHandler {
     private void doSend(MailSendRequest request) {
         var message = new MimeMessageHelper(this.mailSender.createMimeMessage(), true);
         message.setTo(Objects.requireNonNull(this.environment.getProperty("targetMail")));
-        message.setFrom("604106138@qq.com");
+        message.setFrom(this.mailProperties.getUsername());
         Context ctx = new Context();
         ctx.setVariable("sender", request.sender());
         ctx.setVariable("address", request.address());

@@ -1,5 +1,6 @@
 package com.example.sale.handler;
 
+import com.example.sale.dao.entity.BlogEntity;
 import com.example.sale.dao.entity.MenuEntity;
 import com.example.sale.dao.entity.ProductEntity;
 import com.example.sale.model.*;
@@ -96,6 +97,18 @@ public class HandlerRouting {
                                     @ApiResponse(responseCode = "200", description = "successful operation", content = @Content(schema = @Schema(implementation = List.class))),
                             }
                     )
+            ),
+            @RouterOperation(method = GET, path = "/api/blog/detail", beanClass = SaleBlogHandler.class, beanMethod = "detailBlog",
+                    operation = @Operation(
+                            operationId = "detailBlog",
+                            description = "blog详情",
+                            parameters = {
+                                    @Parameter(in = QUERY, name = "id", description = "id")
+                            },
+                            responses = {
+                                    @ApiResponse(responseCode = "200", description = "successful operation", content = @Content(schema = @Schema(implementation = BlogEntity.class))),
+                            }
+                    )
             )
     })
     public RouterFunction<ServerResponse> saleBlogRouterFunction(SaleBlogHandler handler) {
@@ -104,6 +117,7 @@ public class HandlerRouting {
                 .GET("/delete", handler::deleteBlog)
                 .GET("/page", handler::pageBlog)
                 .GET("/list", handler::listBlog)
+                .GET("/detail", handler::detailBlog)
                 .build();
         return RouterFunctions.route().path("/api/blog", supplier).build();
     }
@@ -386,6 +400,15 @@ public class HandlerRouting {
                 .GET("/list", handler::listCarouselImage)
                 .build();
         return RouterFunctions.route().path("/api/carouselImage", supplier).build();
+    }
+
+    @Bean
+    public RouterFunction<ServerResponse> adminRouterFunction(AdminHandler handler) {
+        Supplier<RouterFunction<ServerResponse>> supplier = () -> RouterFunctions.route()
+                .POST("/login", RequestPredicates.contentType(APPLICATION_JSON), handler::login)
+                .POST("/modify", RequestPredicates.contentType(APPLICATION_JSON), handler::modifyPassword)
+                .build();
+        return RouterFunctions.route().path("/api/admin", supplier).build();
     }
 
 }

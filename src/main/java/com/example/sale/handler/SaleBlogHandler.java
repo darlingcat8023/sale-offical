@@ -62,6 +62,11 @@ public class SaleBlogHandler {
         return ServerResponse.ok().body(matching, BlogEntity.class);
     }
 
+    public Mono<ServerResponse> detailBlog(ServerRequest request) {
+        var id = request.queryParam("id").map(Long::valueOf).orElseThrow(() -> new RuntimeException("argument"));
+        return ServerResponse.ok().body(this.saleBlogRepository.findById(id), BlogEntity.class);
+    }
+
     private Query buildQuery(ServerRequest request) {
         final var criteria = new AtomicReference<>(Criteria.empty());
         request.queryParam("title").filter(StringUtils::hasText).ifPresent(param -> {

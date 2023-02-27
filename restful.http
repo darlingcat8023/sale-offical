@@ -13,4 +13,15 @@ Content-Type: text/plain
 ###
 
 // @no-log
-GET http://localhost:9000/api/blog/page
+POST http://localhost:9000/api/admin/login
+Content-Type: application/json
+
+{"userName": "root", "password": "123456789"}
+
+###
+
+// @no-log
+POST http://localhost:9000/api/admin/modify
+Content-Type: application/json
+
+{"userName": "root", "password": "123456", "newPassword": "123456789"}
