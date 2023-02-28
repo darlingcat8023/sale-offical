@@ -26,7 +26,7 @@ public class WebFluxConfiguration implements WebFluxConfigurer {
 
     private final ObjectMapper objectMapper;
 
-    private final jakarta.validation.Validator validator;
+    private final javax.validation.Validator validator;
 
     private final Environment environment;
 

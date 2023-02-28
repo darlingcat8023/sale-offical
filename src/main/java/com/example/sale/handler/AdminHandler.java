@@ -4,12 +4,13 @@ import com.example.sale.dao.AdminRepository;
 import com.example.sale.model.LoginRequest;
 import com.example.sale.model.ModifyPasswordRequest;
 import com.example.sale.utils.ValidatorUtils;
-import jakarta.validation.Validator;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.server.ServerRequest;
 import org.springframework.web.reactive.function.server.ServerResponse;
 import reactor.core.publisher.Mono;
+
+import javax.validation.Validator;
 
 /**
  * @author xiaowenrou

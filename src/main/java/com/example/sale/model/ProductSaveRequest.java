@@ -2,10 +2,10 @@ package com.example.sale.model;
 
 import com.example.sale.dao.entity.ProductEntity;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import jakarta.validation.constraints.NotBlank;
 import lombok.SneakyThrows;
 import org.springframework.beans.BeanUtils;
 
+import javax.validation.constraints.NotBlank;
 import java.util.List;
 
 /**

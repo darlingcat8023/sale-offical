@@ -5,7 +5,6 @@ import com.example.sale.dao.entity.BlogEntity;
 import com.example.sale.model.BlogSaveRequest;
 import com.example.sale.utils.ReactivePageUtils;
 import com.example.sale.utils.ValidatorUtils;
-import jakarta.validation.Validator;
 import lombok.AllArgsConstructor;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.data.domain.Page;
@@ -20,6 +19,7 @@ import org.springframework.web.reactive.function.server.ServerRequest;
 import org.springframework.web.reactive.function.server.ServerResponse;
 import reactor.core.publisher.Mono;
 
+import javax.validation.Validator;
 import java.util.concurrent.atomic.AtomicReference;
 
 /**

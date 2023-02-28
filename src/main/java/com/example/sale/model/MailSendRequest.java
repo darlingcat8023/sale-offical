@@ -1,8 +1,9 @@
 package com.example.sale.model;
 
 import com.example.sale.dao.entity.MailEntity;
-import jakarta.validation.constraints.NotBlank;
 import org.springframework.beans.BeanUtils;
+
+import javax.validation.constraints.NotBlank;
 
 /**
  * @author xiaowenrou

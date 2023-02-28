@@ -5,7 +5,6 @@ import com.example.sale.dao.entity.ProductEntity;
 import com.example.sale.model.ProductSaveRequest;
 import com.example.sale.utils.ValidatorUtils;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import jakarta.validation.Validator;
 import lombok.AllArgsConstructor;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.data.domain.*;
@@ -14,6 +13,8 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.reactive.function.server.ServerRequest;
 import org.springframework.web.reactive.function.server.ServerResponse;
 import reactor.core.publisher.Mono;
+
+import javax.validation.Validator;
 
 /**
  * @author xiaowenrou

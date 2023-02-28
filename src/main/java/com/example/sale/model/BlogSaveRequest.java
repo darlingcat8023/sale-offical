@@ -1,8 +1,9 @@
 package com.example.sale.model;
 
 import com.example.sale.dao.entity.BlogEntity;
-import jakarta.validation.constraints.NotBlank;
 import org.springframework.beans.BeanUtils;
+
+import javax.validation.constraints.NotBlank;
 
 /**
  * @author xiaowenrou

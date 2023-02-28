@@ -4,7 +4,6 @@ import com.example.sale.dao.CarouselImageRepository;
 import com.example.sale.dao.entity.CarouselImageEntity;
 import com.example.sale.model.CarouselImageSaveRequest;
 import com.example.sale.utils.ValidatorUtils;
-import jakarta.validation.Validator;
 import lombok.AllArgsConstructor;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.data.domain.*;
@@ -13,6 +12,8 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.reactive.function.server.ServerRequest;
 import org.springframework.web.reactive.function.server.ServerResponse;
 import reactor.core.publisher.Mono;
+
+import javax.validation.Validator;
 
 /**
  * @author xiaowenrou

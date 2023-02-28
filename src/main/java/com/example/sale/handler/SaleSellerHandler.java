@@ -4,7 +4,6 @@ import com.example.sale.dao.SellerRepository;
 import com.example.sale.dao.entity.SellerEntity;
 import com.example.sale.model.SellerSaveRequest;
 import com.example.sale.utils.ValidatorUtils;
-import jakarta.validation.Validator;
 import lombok.AllArgsConstructor;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.data.domain.*;
@@ -12,6 +11,8 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.server.ServerRequest;
 import org.springframework.web.reactive.function.server.ServerResponse;
 import reactor.core.publisher.Mono;
+
+import javax.validation.Validator;
 
 /**
  * @author xiaowenrou

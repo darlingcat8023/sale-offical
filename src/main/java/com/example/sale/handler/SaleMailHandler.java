@@ -4,7 +4,6 @@ import com.example.sale.dao.MailRepository;
 import com.example.sale.dao.entity.MailEntity;
 import com.example.sale.model.MailSendRequest;
 import com.example.sale.utils.ValidatorUtils;
-import jakarta.validation.Validator;
 import lombok.AllArgsConstructor;
 import lombok.SneakyThrows;
 import org.springframework.boot.autoconfigure.mail.MailProperties;
@@ -21,6 +20,7 @@ import org.thymeleaf.ITemplateEngine;
 import org.thymeleaf.context.Context;
 import reactor.core.publisher.Mono;
 
+import javax.validation.Validator;
 import java.time.LocalDateTime;
 import java.util.Objects;
 

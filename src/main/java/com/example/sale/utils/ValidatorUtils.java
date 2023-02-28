@@ -1,7 +1,7 @@
 package com.example.sale.utils;
 
 
-import jakarta.validation.Validator;
+import javax.validation.Validator;
 
 /**
  * @author xiaowenrou
