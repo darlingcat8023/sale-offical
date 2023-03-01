@@ -12,6 +12,7 @@ import org.springframework.core.env.Environment;
 import org.springframework.data.domain.*;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
+import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 import org.springframework.web.reactive.function.server.ServerRequest;
@@ -44,10 +45,13 @@ public class SaleMailHandler {
 
     private final MailProperties mailProperties;
 
+    private final ThreadPoolTaskExecutor executor;
+
 
     public Mono<ServerResponse> sendMail(ServerRequest request) {
         var mono = request.bodyToMono(MailSendRequest.class).doOnNext(req -> ValidatorUtils.valid(this.validator, req))
-                .flatMap(req -> this.mailRepository.save(req.convert()).doOnSuccess(ent -> this.doSend(req))).thenReturn("success");
+                .flatMap(req -> this.mailRepository.save(req.convert()).doOnSuccess(ent -> this.executor.execute(() -> this.doSend(req))))
+                .thenReturn("success");
         return ServerResponse.ok().body(mono, String.class);
     }
 
