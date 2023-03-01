@@ -13,7 +13,7 @@ Content-Type: text/plain
 ###
 
 // @no-log
-POST http://localhost:9000/api/admin/login
+POST http://47.254.34.47:9000/api/admin/login
 Content-Type: application/json
 
 {"userName": "root", "password": "123456789"}

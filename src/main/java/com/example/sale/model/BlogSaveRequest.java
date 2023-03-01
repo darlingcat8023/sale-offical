@@ -4,6 +4,7 @@ import com.example.sale.dao.entity.BlogEntity;
 import org.springframework.beans.BeanUtils;
 
 import javax.validation.constraints.NotBlank;
+import java.time.LocalDateTime;
 
 /**
  * @author xiaowenrou
@@ -30,6 +31,7 @@ public record BlogSaveRequest(
     public BlogEntity convert() {
         var entity = new BlogEntity();
         BeanUtils.copyProperties(this, entity);
+        entity.setCreatedDate(LocalDateTime.now());
         return entity;
     }
 

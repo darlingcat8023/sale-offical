@@ -26,6 +26,5 @@ logging:
     org.springframework.http.codec.json.Jackson2JsonDecoder: trace
     org.springframework.core.codec.CharSequenceEncoder: trace
 
-filePath: "/Users/xiaowenrou/Downloads/"
-#targetMail: "sales@earthmother.cn"
-targetMail: "yuanyang613@163.com"
+filePath: "/home/upload/"
+targetMail: "sales@earthmother.cn"

@@ -6,6 +6,7 @@ import lombok.SneakyThrows;
 import org.springframework.beans.BeanUtils;
 
 import javax.validation.constraints.NotBlank;
+import java.time.LocalDateTime;
 import java.util.List;
 
 /**
@@ -45,6 +46,7 @@ public record ProductSaveRequest(
     public ProductEntity convert(ObjectMapper mapper) {
         var entity = new ProductEntity();
         BeanUtils.copyProperties(this, entity);
+        entity.setCreatedDate(LocalDateTime.now());
         return entity.setProperties(mapper.writeValueAsString(this.properties))
                 .setRelationProduct(mapper.writeValueAsString(this.relationProduct))
                 .setLoadImage(mapper.writeValueAsString(this.loadImage));

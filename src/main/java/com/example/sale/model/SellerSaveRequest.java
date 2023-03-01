@@ -4,6 +4,7 @@ import com.example.sale.dao.entity.SellerEntity;
 import org.springframework.beans.BeanUtils;
 
 import javax.validation.constraints.NotBlank;
+import java.time.LocalDateTime;
 
 /**
  * @author xiaowenrou
@@ -32,6 +33,7 @@ public record SellerSaveRequest(
     public SellerEntity convert() {
         var entity = new SellerEntity();
         BeanUtils.copyProperties(this, entity);
+        entity.setCreatedDate(LocalDateTime.now());
         return entity;
     }
 

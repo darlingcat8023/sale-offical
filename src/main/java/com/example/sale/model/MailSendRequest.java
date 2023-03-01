@@ -4,6 +4,7 @@ import com.example.sale.dao.entity.MailEntity;
 import org.springframework.beans.BeanUtils;
 
 import javax.validation.constraints.NotBlank;
+import java.time.LocalDateTime;
 
 /**
  * @author xiaowenrou
@@ -28,6 +29,7 @@ public record MailSendRequest(
     public MailEntity convert() {
         var entity = new MailEntity();
         BeanUtils.copyProperties(this, entity);
+        entity.setCreatedDate(LocalDateTime.now());
         return entity;
     }
 
